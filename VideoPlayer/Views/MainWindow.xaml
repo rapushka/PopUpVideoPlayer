@@ -22,11 +22,9 @@
             <RowDefinition Height="15*"/>
         </Grid.RowDefinitions>
 
-        <TextBox Style="{StaticResource AddresField}" Width="500">
-            C:\Самазанятак\[ЗАРАЗ] Архитектура мобильных игр на UNITY для профессионалов\01\Input. 2 Bootstrapper.mp4
-        </TextBox>
-        <Button Grid.Column="2" Command="{Binding PathAdd}">Play</Button>
-        <MediaElement Grid.Row="1" Grid.Column="0" LoadedBehavior="Stop" 
+        <TextBox Style="{StaticResource AddresField}" Width="500" Text="{Binding Input}"/>
+        <Button Grid.Row="0" Grid.Column="2" Command="{Binding SetInputAsPath}">Play</Button>
+        <MediaElement Grid.Row="1" Grid.Column="0"
                       Source="{Binding Path}"/>
 
         <GridSplitter Grid.Column="1" Grid.Row="1" ShowsPreview="False" Width="5"
