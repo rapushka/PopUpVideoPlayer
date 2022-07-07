@@ -6,38 +6,49 @@ using VideoPlayer.Models;
 namespace VideoPlayer.ViewModels;
 public class MainViewModel : ViewModelBase
 {
-	private const string TestPath = 
-		@"C:\Самазанятак\[ЗАРАЗ] Архитектура мобильных игр на UNITY для профессионалов\01\Input. 1 Intro.mp4";
 	private string _path;
-	private string _input;
 
 	public MainViewModel()
 	{
-		_input = TestPath;
 		_path = string.Empty;
 	}
-
-	public string Input
-	{
-		get => _input;
-		set
-		{
-			_input = value;
-			RaisePropertyChanged(() => Input);
-		}
-	}
 	
+	public event EventHandler PlayRequested;
+
 	public string Path
 	{
 		get => _path;
-		set
+		private set
 		{
 			_path = value;
 			RaisePropertyChanged(() => Path);
 		}
 	}
 
-	public ICommand SetInputAsPath
+	public ICommand OpenVideo
 		=> new CommandDelegator<object>((x)
-			=> Path = Input);
+			=> DialogFileWindow());
+
+	public ICommand Play
+		=> new CommandDelegator<object>((x)
+			=> PlayRequested(this, EventArgs.Empty));
+
+	private void DialogFileWindow()
+	{
+		Microsoft.Win32.OpenFileDialog dialog = new()
+		{
+			FileName = "Video",
+			DefaultExt = ".mp4",
+			Filter = "Videos (.mp4)|*.mp4"
+		};
+
+		bool? result = dialog.ShowDialog();
+
+		if (result is false or null)
+		{
+			return;
+		}
+		
+		Path = dialog.FileName;
+	}
 }

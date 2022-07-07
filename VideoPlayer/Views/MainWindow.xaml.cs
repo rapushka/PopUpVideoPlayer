@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
+using System.Windows.Controls;
 using VideoPlayer.ViewModels;
 
 namespace VideoPlayer.Views;
@@ -10,5 +12,12 @@ public partial class MainWindow : Window
 	public MainWindow()
 	{
 		InitializeComponent();
+		
+		MainViewModel vm = new();
+		this.DataContext = vm;
+		vm.PlayRequested += (sender, e) =>
+		{
+			Player.Play();
+		};
 	}
 }

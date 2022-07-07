@@ -3,31 +3,25 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:VideoPlayer.Views" 
+        xmlns:local="clr-namespace:VideoPlayer.Views"
         xmlns:vm="clr-namespace:VideoPlayer.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.DataContext>
-        <vm:MainViewModel/>
+        <vm:MainViewModel />
     </Window.DataContext>
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5*" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="1*" />
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="15*"/>
+            <RowDefinition Height="15*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBox Style="{StaticResource AddresField}" Width="500" Text="{Binding Input}"/>
-        <Button Grid.Row="0" Grid.Column="2" Command="{Binding SetInputAsPath}">Play</Button>
-        <MediaElement Grid.Row="1" Grid.Column="0"
-                      Source="{Binding Path}"/>
-
-        <GridSplitter Grid.Column="1" Grid.Row="1" ShowsPreview="False" Width="5"
-            HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+        <MediaElement x:Name="Player" Grid.Row="0" Source="{Binding Path}" LoadedBehavior="Manual"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Command="{Binding OpenVideo}" Style="{StaticResource OpenFileButton}">Open</Button>
+            <Button Command="{Binding Play}" Style="{StaticResource OpenFileButton}">Play</Button>
+            
+        </StackPanel>
     </Grid>
 </Window>
